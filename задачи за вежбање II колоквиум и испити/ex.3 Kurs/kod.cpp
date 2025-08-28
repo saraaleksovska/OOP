@@ -52,7 +52,9 @@ public:
         this->indeks=indeks;
         this->brOcenki=brOcenki;
         this->ocenki=new int[brOcenki];
-        for (int i=0;i<brOcenki;i++) this->ocenki[i]=ocenki[i];
+        for (int i=0;i<brOcenki;i++){
+            this->ocenki[i]=ocenki[i];
+         }
     }
     Student(const Student &s){
         copy(s);
@@ -84,7 +86,9 @@ private:
     int brKursevi;
     void copy(const Predavach &p){
         this->brKursevi=p.brKursevi;
-        for (int i=0;i<p.brKursevi;i++) this->kursevi[i]=p.kursevi[i];
+        for (int i=0;i<p.brKursevi;i++) {
+            this->kursevi[i]=p.kursevi[i];
+        }
         this->ime=new char[strlen(p.ime)+1];
         strcpy(this->ime,p.ime);
     }
@@ -136,8 +140,7 @@ class Demonstrator:public Student, public Predavach{
 private:
     int brCasovi;
 public:
-    Demonstrator(int indeks,int *ocenki, int brOcenki,const char *ime,Kurs *kursevi, int brKursevi,int brCasovi)
-            :Student(indeks,ocenki,brOcenki),Predavach(ime,kursevi,brKursevi) {
+    Demonstrator(int indeks,int *ocenki, int brOcenki,const char *ime,Kurs *kursevi, int brKursevi,int brCasovi):Student(indeks,ocenki,brOcenki),Predavach(ime,kursevi,brKursevi) {
         this->brCasovi=brCasovi;
     }
     void pecati(){
@@ -161,19 +164,24 @@ Student &vratiNajdobroRangiran(Student **studenti, int n ) {
                 max=studenti[i]->getBodovi();
                 max_ind=i;
             }
-        }catch(NoCourseException e){e.print();}
+        }catch(NoCourseException e){
+            e.print();
+        }
     }
     return (*studenti[max_ind]);
 }
+
 void pecatiDemonstratoriKurs(char *kurs, Student **studenti, int n){
     for (int i=0;i<n;i++){
         Demonstrator* dPok = dynamic_cast<Demonstrator*> (studenti[i]);
         if (dPok!=0) {
             int m=dPok->getBrojKursevi();
             for (int j=0;j<m;j++)
-                if ((*dPok)[j]==kurs) {dPok->pecati(); cout<<endl;}
+                if ((*dPok)[j]==kurs) {
+                    dPok->pecati();
+                }
+            cout<<endl;}
         }
-    }
 }
 
 //не менуваш ништо во main
@@ -355,4 +363,5 @@ int main(){
 
     return 0;
 }
+
 
