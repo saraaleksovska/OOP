@@ -1,0 +1,79 @@
+/* во примеров
+   class Kniga е главната класа. Нејзини наследници се класите OnlineBook и PecatenaKniga.
+   Содржи една чисто виртуелна ф-ја која е декларирана со virtual int cenaKniga() = 0;
+
+   Правило за апстрактна класа:
+   Ако класата содржи барем една чисто виртуелна ф-ја тогаш таа е апстрактна класа -> според ова Kniga е апстрактна класа.
+
+   class Kniga е всушност шаблон.
+   Ова значи дека во главната класа само се декларира(се кажува дека постои) чисто вирутелната ф-ја, но како да работи таа ф-ја се дефинира во
+   класите наследници (ја модифицираат според потребите).(пр. да пресмета нешто).
+
+  Или со други зборови имаме:
+  class Tatko и негови наследници class Sin и class Kjerka.
+  Tatko-то само им кажува дека има куќа (int virtual kukja()=0;), не им кажува што да прават со неа.
+  Sinот одлучува да ја продаде куќата (ја користи kuкјата на еден начин според потребите).
+  Kjerka одлучува да ја издава куќата (ја користи kukjaта на друг начин според потребите).
+  поентата е дека двајцата ја користат куќата(ф-јата), но имаат можност да ги прилагодат инструкциите какошто сакаат.
+  Таткото само им кажува дека мора да ја користат куќата, а како ќе ја користат – тоа е нивно.
+ */
+#include <iostream>
+#include <cstring>
+
+using namespace std;
+
+class Kniga{
+protected:
+    char naslov[10];
+    int stranici;
+    int cena;
+public:
+    Kniga(const char *naslov=" ", int stranici=0, int cena=0){
+        strcpy(this->naslov,naslov);
+        this->stranici=stranici;
+        this->cena=cena;
+    }
+    virtual int cenaKniga() = 0; //таткото вели имам куќа
+    virtual ~Kniga(){}
+    friend ostream &operator<< (ostream &o, Kniga &k){
+        o<<k.naslov<<" "<<k.stranici<<" "<<k.cenaKniga()<<endl;
+        return o;
+    }
+};
+
+class OnlineKniga : public Kniga{
+private:
+    int golemina;
+public:
+    OnlineKniga(const char *naslov=" ", int stranici=0, int cena=0, int golemina=0): Kniga(naslov, stranici, cena){
+        this->golemina=golemina;
+    }
+    int cenaKniga() override { //синот одлучува да ја продаде куќата (ја користи на еден начин според неговите потреби)
+        if (golemina>20) {
+            return cena * 10;
+        }
+        return cena;
+    }
+};
+class PecatenaKniga : public Kniga{
+private:
+    int izdanija;
+public:
+    PecatenaKniga(const char *naslov=" ", int stranici=0, int cena=0, int izdanija=0): Kniga(naslov, stranici, cena){
+        this->izdanija=izdanija;
+    }
+    int cenaKniga() override { //ќерката одлучува да ја издава куќата (ја користи на друг начин според нејзините потреби)
+        if (izdanija>3)
+            return cena *20;
+        return cena;
+    }
+};
+int main(){
+    //Kniga k("naslov", 3, 500); //вака не може, кај апстрактна класа не можеш директно од нејзе да креираш објект туку мораш од нејзините наследници
+    OnlineKniga ok("naslov", 250, 150, 50); //вака може, се креира објект од нејзиниот наследник OnlineKniga
+    PecatenaKniga pk("naslov", 250, 150,3); //вака може, се креира објект од нејзиниот наследник PecatenaKniga
+    cout<<ok; //се повикува операторот за печатење дефиниран во класата
+    cout<<endl;
+    cout<<pk;
+    return 0;
+}
