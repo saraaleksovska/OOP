@@ -1,15 +1,13 @@
 #include<iostream>
 #include<cstring>
 /*
-  1. Чисто виртуелна функција е функција која е само декларирана во главната класа со virtual tip imeFunkcija()=0. И сега кога во главната класа
-      ќе се содржи оваа виртуелна функција, класата станува апстрактна.
+  1. Чисто виртуелна функција е функција која е само декларирана во главната класа со virtual tip imeFunkcija()=0. И сега кога во главната класа ќе се содржи оваа виртуелна функција, класата станува апстрактна.
 
   2. Чисто виртуелната функција само се декларира во апстрактната класа, но како сакаме да работи се прави во класите наследници.
 
   3. Aпстрактна класа e класа која мора да има барем една чисто виртуелна функција (декларирана со virtual tip imeFunkcija()=0)
 
-  4. Кога класата е апстрактна, не може да направиш директно објект од нејзе, туку креираш објекти од нејзините наследници класи(кои ја
-     имплементираат виртуелната функција)
+  4. Кога класата е апстрактна, не може да направиш директно објект од нејзе, туку креираш објекти од нејзините наследници класи(кои ја имплементираат виртуелната функција)
       или во превод
       Book b("20", "Harry Potter", "Avtor", 500);                     //ова не може
       OnlineBook ob("20", "Harry Potter", "Avtor", 500, "url", 30);  //ова може, бидејќи ОnlineBook е наследник на Book
@@ -89,8 +87,7 @@ private:
 	float masa;
 	bool naZaliha;
 public:
-	PrintBook(const char *isbn = "", const char *naslov = "", const char *avtor = "", float cena = 0.0, float masa = 0.0, bool naZaliha = false)
-		:Book(isbn, naslov, avtor, cena){
+	PrintBook(const char *isbn = "", const char *naslov = "", const char *avtor = "", float cena = 0.0, float masa = 0.0, bool naZaliha = false) :Book(isbn, naslov, avtor, cena){
 		this->masa = masa;
 		this->naZaliha = naZaliha;
 	}
@@ -122,6 +119,8 @@ void mostExpensiveBook(Book **books, int n){
 	cout << *najskapa;
 }
 
+
+
 //не менуваш ништо во main
 
 int main(){
@@ -131,15 +130,12 @@ int main(){
 	bool inStock;
 	Book  **books;
 	int n;
-
 	int testCase;
 	cin >> testCase;
-
 	if (testCase == 1){
 		cout << "====== Testing OnlineBook class ======" << endl;
 		cin >> n;
 		books = new Book *[n];
-
 		for (int i = 0; i < n; i++){
 			cin >> isbn;
 			cin.get();
@@ -236,3 +232,4 @@ int main(){
 		delete[] books;
 	return 0;
 }
+
