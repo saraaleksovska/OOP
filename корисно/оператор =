@@ -1,0 +1,7 @@
+Klasa operator=(const Klasa &k){
+        if (this!=&k) {
+            delete [] dinamickiAlocirana;
+            copy(k);
+        }
+        return *this;
+    }
