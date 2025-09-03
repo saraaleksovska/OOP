@@ -67,8 +67,7 @@ public:
         nadomestok = 0;
         mesec = godina = 0;
     }
-    SubscriptionGame(const char *ime, float cena = 0.0, bool rasprodazba = false,float nadomestok = 0.0, int mesec = 0, int godina = 0)
-            : Game(ime, cena, rasprodazba) {
+    SubscriptionGame(const char *ime, float cena = 0.0, bool rasprodazba = false,float nadomestok = 0.0, int mesec = 0, int godina = 0) : Game(ime, cena, rasprodazba) {
         this->nadomestok = nadomestok;
         this->mesec = mesec;
         this->godina = godina;
@@ -353,3 +352,4 @@ int main() {
 
     return 0;
 }
+
