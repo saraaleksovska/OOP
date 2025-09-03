@@ -1,0 +1,3 @@
+friend bool operator>(Klasa &k1, Klasa &k2){
+        return (k1.cena()>k2.cena());
+    }
