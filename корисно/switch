@@ -1,0 +1,7 @@
+   int calcDiscount(){
+        switch(vid){
+            case loyal: return 1;
+            case vip: return -1;
+            default: return 0;
+        }
+    }
