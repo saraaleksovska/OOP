@@ -1,5 +1,6 @@
  void copy(const Klasa &k){
-        this->ime=k.ime;
+        this->ime=new char[strlen(ime)];
+        strcpy(this->ime, ime);
         this->n=k.n;
         this->broevi=new int[k.n];
         for (int i=0;i<k.n;i++) {
