@@ -1,0 +1,11 @@
+class Klasa {
+private:
+    char msg[100];
+public:
+    Klasa(const char *msg) {
+       strcpy(this->msg, msg);
+    }
+    void message() {
+        cout << msg << endl;
+    }
+};
