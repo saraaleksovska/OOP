@@ -1,0 +1,10 @@
+Klasa() {
+        ime[0] = '\0';
+        cena = 0.0;
+        rasprodazba = false;
+    }
+Klasa(const char *ime, float cena, bool rasprodazba) {
+        strcpy(this->ime, ime);
+        this->cena = cena;
+        this->rasprodazba = rasprodazba;
+    }
