@@ -108,6 +108,12 @@ void mostExpensiveBook (Book **books, int n){
     int pecateni=0;
     for(int i=0; i<n; i++) {
         OnlineBook *ob = dynamic_cast<OnlineBook *>(books[i]);
+      /*books[i] е покажувач од тип Book* (бидејќи низата е декларирана како Book **books;).
+        Но Book е базна класа, во неа може да се чуваат објекти и од OnlineBook и од PrintBook (полиформизам).
+        Проблемот е: кога ја читаш books[i], ти знаеш дека е некаков Book, ама не знаеш точно дали е OnlineBook или PrintBook.
+        Тука настапува dynamic_cast. Како работи dynamic_cast?
+        dynamic_cast<OnlineBook *>(books[i]) се обидува да го претвори покажувачот books[i] во покажувач кон OnlineBook.
+        Ако books[i] покажува на објект од тип OnlineBook → ќе врати валиден покажувач. Ако не е OnlineBook (на пример е PrintBook) → ќе врати nullptr (0).*/
         if (ob != 0) {
             online++;
         }
@@ -121,12 +127,12 @@ void mostExpensiveBook (Book **books, int n){
     cout << "Total number of print books: " << pecateni << endl;
     Book *najskapa=books[0];
     for(int i=0; i<n; i++){
-        if(*books[i] > *najskapa){
+        if(*books[i] > *najskapa){ //ова работи според оператор > кој е дефиниран во класата Book, тука веќе знае дека треба според цената да споредува (кажано му е горе)
             najskapa=books[i];
         }
     }
     cout << "The most expensive book is: " << endl;
-    cout << *najskapa;
+    cout << *najskapa; //* бидејќи сакаме книгата, не адресата во меморија.
 }
 
 int main(){
@@ -238,3 +244,4 @@ int main(){
     delete[] books;
     return 0;
 }
+
