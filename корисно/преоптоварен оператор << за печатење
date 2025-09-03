@@ -1,0 +1,4 @@
+friend ostream &operator<<(ostream &out, Klasa &k){
+        out<<k.ime<<" "<<k.prezime<<endl;
+        return out;
+    }
