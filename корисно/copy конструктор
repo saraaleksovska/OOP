@@ -1,0 +1,12 @@
+ void copy(const Klasa &k){
+        this->ime=k.ime;
+        this->n=k.n;
+        this->broevi=new int[k.n];
+        for (int i=0;i<k.n;i++) {
+            this->broevi[i]=s.broevi[i];
+        }
+    }
+
+  Klasa(const Klasa &k){
+        copy(k);
+    }
