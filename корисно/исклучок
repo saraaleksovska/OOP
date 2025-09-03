@@ -1,11 +1,19 @@
-class Klasa {
+class Isklucok {
 private:
     char msg[100];
 public:
-    Klasa(const char *msg) {
+    Isklucok(const char *msg) {
        strcpy(this->msg, msg);
     }
     void message() {
         cout << msg << endl;
+    }
+};
+
+
+class Isklucok{
+public:
+    void print(){
+        cout<<"Brojot na pin kodovi ne moze da go nadmine dozvolenoto"<<endl;
     }
 };
