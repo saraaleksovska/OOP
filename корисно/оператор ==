@@ -1,3 +1,7 @@
 bool operator==(Klasa &k) {
         return zarabotuvacka()==v.zarabotuvacka();
     }
+
+ bool operator==(Klasa &k) {
+        return strcmp(this->ime, k.ime) == 0;
+    }
