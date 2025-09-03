@@ -1,0 +1,7 @@
+ friend istream &operator>>(istream &in, Game &g) {
+        in.get();
+        in.getline(g.ime, 100);
+        in >> g.cena >> g.rasprodazba;
+        
+        return in;
+    }
