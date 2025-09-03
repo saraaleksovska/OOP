@@ -1,0 +1,6 @@
+enum pozicija{
+    vraboten, direktor, shef  //0, 1,  2
+};
+
+
+пример ако е дадено: vraboten, direktor=4, shef тогаш вредностите ќе бидат 0, 4, 5 соодветно
