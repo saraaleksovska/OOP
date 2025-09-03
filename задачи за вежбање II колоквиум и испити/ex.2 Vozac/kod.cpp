@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+
 using namespace std;
 
 class Vozac{
@@ -9,72 +10,74 @@ protected:
     int trki;
     bool veteran;
 public:
-    Vozac(const char *ime=" ", int vozrast=0, int trki=0, bool veteran=false){
+    Vozac(const char *ime=" ", int vozrast=0, int trki=0, bool veteran=true){
         strcpy(this->ime, ime);
         this->vozrast=vozrast;
         this->trki=trki;
         this->veteran=veteran;
     }
-    friend ostream &operator<<(ostream &out, const Vozac &v){
-        out<<v.ime<<endl<<v.vozrast<<endl<<v.trki<<endl;
+    friend ostream &operator<<(ostream &out, Vozac &v){
+        out<<v.ime<<endl;
+        out<<v.vozrast<<endl;
+        out<<v.trki<<" "<<endl;
         if(v.veteran){
             out<<"VETERAN"<<endl;
         }
         return out;
     }
-    virtual float zarabotuvacka() const=0; //const e ставено дека кај оператор==,  &v е const објект од Vozac
-    virtual float danok() const=0;
-    bool operator==(const Vozac &v) const{
+    virtual float zarabotuvacka() =0;
+    virtual ~Vozac(){};
+    virtual float danok()=0;
+    bool operator==( Vozac &v) {
         return zarabotuvacka()==v.zarabotuvacka();
     }
-};
 
+};
 class Avtomobilist : public Vozac{
-protected:
+private:
     float cena;
 public:
-    Avtomobilist(const char *ime=" ", int vozrast=0, int trki=0, bool veteran=false, float cena=0.0) : Vozac(ime, vozrast, trki, veteran){
+    Avtomobilist(const char *ime=" ", int vozrast=0, int trki=0, bool veteran=true, float cena=0.0) : Vozac(ime, vozrast, trki, veteran){
         this->cena=cena;
     }
-    float zarabotuvacka() const override{
+    float zarabotuvacka() override{
         return cena/5;
     }
-    float danok() const override{
+    float danok() override{
         if(trki>10){
-            return zarabotuvacka()* 0.15;
+            return zarabotuvacka()*0.15;
         }
         return zarabotuvacka()*0.1;
     }
 };
 class Motociklist : public Vozac{
-protected:
+private:
     int mokjnost;
 public:
-    Motociklist(const char *ime=" ", int vozrast=0, int trki=0, bool veteran=false, int mokjnost=0) : Vozac(ime, vozrast, trki, veteran){
+    Motociklist(const char *ime=" ", int vozrast=0, int trki=0, bool veteran=true, int mokjnost=0) : Vozac(ime, vozrast, trki, veteran){
         this->mokjnost=mokjnost;
     }
-    float zarabotuvacka() const override{
+    float zarabotuvacka() override{
         return mokjnost*20;
     }
-    float danok() const override{
+    float danok() override{
         if(veteran){
             return zarabotuvacka()*0.25;
         }
-        return zarabotuvacka() * 0.2;
+        return zarabotuvacka()*0.2;
     }
 };
 
 int soIstaZarabotuvachka(Vozac **v, int n, Vozac *vozac){
-    int rezultat=0;
+    int brVozaci=0;
     for(int i=0; i<n; i++){
-        if(*v[i]==*vozac){ //ова е всушност повик на операторот == што е креиран погоре за споредба на заработувачките
-            rezultat++;
+        if(*v[i]==*vozac){
+            brVozaci++;
         }
     }
-    return rezultat;
+    return brVozaci;
 }
 
-//не менуваш во main
 
 int main() {
     int n, x;
