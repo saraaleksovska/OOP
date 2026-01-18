@@ -11,12 +11,12 @@ class Pesna {
 private:
     char *ime; //динамички алоцирана низа од знаци
     int minuti;
-    tip tipp;
+    tip tip_;
     void copy(const Pesna &p) {
         this->ime = new char[strlen(p.ime) + 1];
         strcpy(this->ime, p.ime);
         this->minuti = p.minuti;
-        this->tipp = p.tipp;
+        this->tip_ = p.tip_;
     }
 public:
     /*Pesna() { //defaultен конструктор
@@ -24,11 +24,11 @@ public:
         minuti = 0;
         tipp = pop;
     }*/
-    Pesna(char *ime=" ", int minuti=0, tip tipp=rok) {
+    Pesna(char *ime=" ", int minuti=0, tip tip_=rok) {
         this->ime = new char[strlen(ime) + 1];
         strcpy(this->ime, ime);
         this->minuti = minuti;
-        this->tipp = tipp;
+        this->tip_ = tip_;
     }
     Pesna(const Pesna &p) {
         copy(p);
@@ -53,7 +53,7 @@ public:
         return ime;
     }
     tip getTip() {
-        return tipp;
+        return tip_;
     }
 };
 
@@ -62,13 +62,6 @@ private:
     Pesna pesni[10]; //Поле од најмногу 10 објекти од класата Pesna
     int n;
     int maxVreme;
-    void copy(const CD &cd) {
-        this->n = cd.n;
-        this->maxVreme = cd.maxVreme;
-        for (int i = 0; i < cd.n; i++) {
-            this->pesni[i] = cd.pesni[i];
-        }
-    }
 public:
     CD(int maxVreme) {
         this->maxVreme = maxVreme;
@@ -77,10 +70,13 @@ public:
             this->pesni[i]=pesni[i];
         }
     }
-    CD(const CD &cd){
-        copy(cd);
+    Pesna getPesna(int i) { 
+        return pesni[i]; 
     }
-    int getVkupnoVreme() {
+    int getBroj() { 
+        return n;
+    }
+    int vkupnoVreme() {
         int vkupno = 0;
         for (int i = 0; i < n; i++) {
             vkupno += pesni[i].getMinuti();
@@ -89,12 +85,16 @@ public:
     }
     void dodadiPesna(Pesna p) {
         if (n>=10) return;
-        if (maxVreme < getVkupnoVreme()+p.getMinuti()) return;
+        if (maxVreme < vkupnoVreme()+p.getMinuti()) return;
         bool jaIma = false;
         for (int i = 0; i < n; i++) {
-            if (strcmp(pesni[i].getIme(), p.getIme()) == 0) jaIma = true;
+            if (strcmp(pesni[i].getIme(), p.getIme()) == 0) {
+                jaIma = true;
+            }
         }
-        if (jaIma == false) pesni[n++] = p;
+        if (jaIma == false) {
+            pesni[n++] = p;
+        }
     }
     void pecatiPesniPoTip(tip t) {
         for (int i = 0; i < n; i++) {
@@ -102,12 +102,6 @@ public:
                 pesni[i].pecati();
             }
         }
-    }
-    Pesna getPesna(int i) { 
-        return pesni[i]; 
-    }
-    int getBroj() { 
-        return n;
     }
 };
 
@@ -177,4 +171,5 @@ int main() {
     return 0;
 
 }
+
 
