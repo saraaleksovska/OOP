@@ -46,9 +46,15 @@ public:
     void pecati() {
         cout << "\"" << ime << "\"-" << minuti << "min" << endl;
     }
-    int getMinuti() {return minuti;}
-    char *getIme() {return ime;}
-    tip getTip() {return tipp;}
+    int getMinuti() {
+        return minuti;
+    }
+    char *getIme() {
+        return ime;
+    }
+    tip getTip() {
+        return tipp;
+    }
 };
 
 class CD {
@@ -74,7 +80,7 @@ public:
     CD(const CD &cd){
         copy(cd);
     }
-    int getVkupnoVremeOdSitePesni() {
+    int getVkupnoVreme() {
         int vkupno = 0;
         for (int i = 0; i < brPesni; i++) {
             vkupno += pesni[i].getMinuti();
@@ -83,7 +89,7 @@ public:
     }
     void dodadiPesna(Pesna p) {
         if (brPesni>=10) return;
-        if (maxVreme < getVkupnoVremeOdSitePesni()+p.getMinuti()) return;
+        if (maxVreme < getVkupnoVreme()+p.getMinuti()) return;
         bool jaIma = false;
         for (int i = 0; i < brPesni; i++) {
             if (strcmp(pesni[i].getIme(), p.getIme()) == 0) jaIma = true;
@@ -97,12 +103,18 @@ public:
             }
         }
     }
-    Pesna getPesna(int i) { return pesni[i]; }
-    int getBroj() { return brPesni; }
+    Pesna getPesna(int i) { 
+        return pesni[i]; 
+    }
+    int getBroj() { 
+        return brPesni;
+    }
 };
 
-//во main не менуваш ништо
 
+
+
+//во main не менуваш ништо
 int main() {
     // se testira zadacata modularno
     int testCase, n, minuti, kojtip;
@@ -163,4 +175,5 @@ int main() {
     }
 
     return 0;
+
 }
