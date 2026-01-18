@@ -60,20 +60,20 @@ public:
 class CD {
 private:
     Pesna pesni[10]; //Поле од најмногу 10 објекти од класата Pesna
-    int brPesni;
+    int n;
     int maxVreme;
     void copy(const CD &cd) {
-        this->brPesni = cd.brPesni;
+        this->n = cd.n;
         this->maxVreme = cd.maxVreme;
-        for (int i = 0; i < brPesni; i++) {
+        for (int i = 0; i < cd.n; i++) {
             this->pesni[i] = cd.pesni[i];
         }
     }
 public:
     CD(int maxVreme) {
         this->maxVreme = maxVreme;
-        this->brPesni = brPesni;
-        for(int i=0; i<brPesni; i++){
+        this->n = n;
+        for(int i=0; i<n; i++){
             this->pesni[i]=pesni[i];
         }
     }
@@ -82,22 +82,22 @@ public:
     }
     int getVkupnoVreme() {
         int vkupno = 0;
-        for (int i = 0; i < brPesni; i++) {
+        for (int i = 0; i < n; i++) {
             vkupno += pesni[i].getMinuti();
         }
         return vkupno;
     }
     void dodadiPesna(Pesna p) {
-        if (brPesni>=10) return;
+        if (n>=10) return;
         if (maxVreme < getVkupnoVreme()+p.getMinuti()) return;
         bool jaIma = false;
-        for (int i = 0; i < brPesni; i++) {
+        for (int i = 0; i < n; i++) {
             if (strcmp(pesni[i].getIme(), p.getIme()) == 0) jaIma = true;
         }
-        if (jaIma == false) pesni[brPesni++] = p;
+        if (jaIma == false) pesni[n++] = p;
     }
     void pecatiPesniPoTip(tip t) {
-        for (int i = 0; i < brPesni; i++) {
+        for (int i = 0; i < n; i++) {
             if ((int) pesni[i].getTip() == (int) t) {
                 pesni[i].pecati();
             }
@@ -107,7 +107,7 @@ public:
         return pesni[i]; 
     }
     int getBroj() { 
-        return brPesni;
+        return n;
     }
 };
 
@@ -177,3 +177,4 @@ int main() {
     return 0;
 
 }
+
