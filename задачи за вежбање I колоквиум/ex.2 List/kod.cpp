@@ -71,10 +71,18 @@ private:
             listi[i]=lc.listi[i];
     }
 public:
-    ListContainer () { //defaultен конструктор
+    ListContainer(List *listi=nullptr, int m=0, int obidi=0){
+        this->m=m;
+        this->obidi=obidi;
+        this->listi=new List[m+1];
+        for(int i=0; i<m; i++){
+            this->listi[i]=listi[i];
+        }
+    }
+    /*ListContainer () { //defaultен конструктор
         m = obidi = 0; //цел број првично поставен на нула
         listi = new List[0];
-    }
+    }*/
     ListContainer (const ListContainer &lc){
         copy(lc);
     }
@@ -165,5 +173,6 @@ int main() {
         lc.print();
     }
 }
+
 
 
