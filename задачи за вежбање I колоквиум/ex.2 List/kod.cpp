@@ -7,14 +7,14 @@ private:
     int n;
     void copy(const List &l){
         this->n=l.n;
-        broevi = new int [l.n+1];
+        broevi = new int[l.n+1];
         for (int i=0;i<n;i++)
             this->broevi[i]=l.broevi[i];
     }
 public:
     List (int *broevi, int n) {
         this->n=n;
-        this->broevi = new int [n+1];
+        this->broevi = new int[n+1];
         for (int i=0;i<n;i++){
             this->broevi[i]=broevi[i];
         }
@@ -28,20 +28,13 @@ public:
     }
     List &operator = (const List &l){
         if (this!=&l){
-            delete [] broevi;
+            delete[] broevi;
             copy(l);
         }
         return *this;
     }
     ~List() {
-        delete []broevi;
-    }
-    void print() {
-        cout<<n<<": ";
-        for (int i=0;i<n;i++){
-            cout<<broevi[i]<<" ";
-        }
-        cout<<"sum: "<<sum()<<" average: "<<average()<<endl;
+        delete[] broevi;
     }
     int sum() {
         int suma = 0;
@@ -53,6 +46,13 @@ public:
     double average() {
         return (double) sum() / n;
     }
+    void print() {
+        cout<<n<<": ";
+        for (int i=0;i<n;i++){
+            cout<<broevi[i]<<" ";
+        }
+        cout<<"sum: "<<sum()<<" average: "<<average()<<endl;
+    }
     int getN () {
         return n;
     }
@@ -61,18 +61,18 @@ public:
 class ListContainer{
 private:
     List *listi;
-    int n;
-    int brObidi;
+    int m;
+    int obidi;
     void copy(const ListContainer &lc){
-        this->brObidi = lc.brObidi;
-        this->n=lc.n;
-        listi = new List [lc.n+1];
-        for (int i=0;i<lc.n;i++)
+        this->obidi = lc.obidi;
+        this->m=lc.m;
+        listi = new List[lc.m+1];
+        for (int i=0;i<lc.m;i++)
             listi[i]=lc.listi[i];
     }
 public:
     ListContainer () { //defaultен конструктор
-        n = brObidi = 0; //цел број првично поставен на нула
+        m = obidi = 0; //цел број првично поставен на нула
         listi = new List[0];
     }
     ListContainer (const ListContainer &lc){
@@ -80,53 +80,53 @@ public:
     }
     ListContainer &operator = (const ListContainer &lc){
         if (this!=&lc){
-            delete []listi;
+            delete[] listi;
             copy(lc);
         }
         return *this;
     }
     ~ListContainer() {
-        delete []listi;
-    }
-    void addNewList(List l){
-        for (int i=0;i<n;i++)
-            if (listi[i].sum()==l.sum()){
-                brObidi++;
-                return;
-            }
-        List * tmp = new List[n+1];
-        for (int i=0;i<n;i++) {
-            tmp[i] = listi[i];
-        }
-        tmp[n++]=l;
-        delete [] listi;
-        listi = tmp;
+        delete[] listi;
     }
     int sum() {
         int suma = 0;
-        for (int i=0;i<n;i++){
+        for (int i=0;i<m;i++){
             suma+=listi[i].sum();
         }
         return suma;
     }
     double average() {
         int suma = 0;
-        for (int i=0;i<n;i++){
+        for (int i=0;i<m;i++){
             suma+=listi[i].getN();
         }
         return (double) sum() / suma;
     }
+    void addNewList(List l){
+        for (int i=0;i<m;i++)
+            if (listi[i].sum()==l.sum()){
+                obidi++;
+                return;
+            }
+        List *tmp = new List[m+1];
+        for (int i=0;i<m;i++) {
+            tmp[i] = listi[i];
+        }
+        tmp[m++]=l;
+        delete[] listi;
+        listi = tmp;
+    }
     void print () {
-        if (n==0){
+        if (m==0){
             cout<<"The list is empty"<<endl;
             return;
         }
-        for (int i=0;i<n;i++){
+        for (int i=0;i<m;i++){
             cout<<"List number: "<<i+1<<" List info: ";
             listi[i].print();
         }
         cout<<"Sum: "<<sum()<<" Average: "<<average()<<endl;
-        cout<<"Successful attempts: "<<n<<" Failed attempts: "<<brObidi<<endl;
+        cout<<"Successful attempts: "<<m<<" Failed attempts: "<<obidi<<endl;
     }
 };
 
@@ -165,3 +165,4 @@ int main() {
         lc.print();
     }
 }
+
