@@ -12,17 +12,17 @@ private:
             this->broevi[i]=l.broevi[i];
     }
 public:
-    List (int *broevi, int n) {
+    List (int *broevi=nullptr, int n=0) {
         this->n=n;
         this->broevi = new int[n+1];
         for (int i=0;i<n;i++){
             this->broevi[i]=broevi[i];
         }
     }
-    List(){
+    /*List(){
         broevi=new int[0];
         n=0;
-    }
+    }*/
     List (const List &l) {
         copy(l);
     }
@@ -165,4 +165,5 @@ int main() {
         lc.print();
     }
 }
+
 
