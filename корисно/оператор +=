@@ -8,3 +8,14 @@
         niza=tmp;
         return *this;
     }
+
+
+ void addNewList(List l){
+        List *tmp = new List[n+1];
+        for (int i=0;i<n;i++) {
+            tmp[i] = niza[i];
+        }
+        tmp[n++]=l;
+        delete[] niza;
+        niza = tmp;
+    }
