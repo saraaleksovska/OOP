@@ -1,0 +1,25 @@
+------------------------------СЕТЕРИ-----------------------------
+
+
+void setIme(char const *ime){
+    strcpy(this->ime, ime);
+}
+
+void setIme(string ime){
+    this->ime=ime;
+}
+
+void setKarakter(char c){
+    this->c=c;
+}
+
+void setBroj(int n){
+    this->n=n;
+}
+
+void setPoz(Pozicija poz){
+    this->poz=poz;
+}
+
+
+
