@@ -16,14 +16,14 @@ public:
         this->trki=trki;
         this->veteran=veteran;
     }
-    friend ostream &operator<<(ostream &out, Vozac &v){
-        out<<v.ime<<endl;
-        out<<v.vozrast<<endl;
-        out<<v.trki<<" "<<endl;
+    friend ostream &operator<<(ostream &o, Vozac &v){
+        o<<v.ime<<endl;
+        o<<v.vozrast<<endl;
+        o<<v.trki<<" "<<endl;
         if(v.veteran){
-            out<<"VETERAN"<<endl;
+            o<<"VETERAN"<<endl;
         }
-        return out;
+        return o;
     }
     virtual float zarabotuvacka() =0;
     virtual ~Vozac(){};
@@ -69,13 +69,13 @@ public:
 };
 
 int soIstaZarabotuvachka(Vozac **v, int n, Vozac *vozac){
-    int brVozaci=0;
+    int rez=0;
     for(int i=0; i<n; i++){
         if(*v[i]==*vozac){
-            brVozaci++;
+            rez++;
         }
     }
-    return brVozaci;
+    return rez;
 }
 
 
@@ -119,3 +119,4 @@ int main() {
     delete vx;
     return 0;
 }
+
