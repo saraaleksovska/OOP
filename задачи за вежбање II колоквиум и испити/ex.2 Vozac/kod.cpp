@@ -1,5 +1,3 @@
-// vashiot kod ovde
-
 #include <iostream>
 #include <cstring>
 using namespace std;
@@ -34,37 +32,42 @@ class Avtomobilist : public Vozac{
 private:
     float cena;
 public:
-    Avtomobilist(const char *ime="", int vozrast=0, int trki=0, bool veteran= true, float cena=0.0)
-    : Vozac(ime, vozrast, trki, veteran){
+    Avtomobilist(const char *ime="", int vozrast=0, int trki=0, bool veteran= true, float cena=0.0) : Vozac(ime, vozrast, trki, veteran){
         this->cena=cena;
     }
     float zarabotuvacka() const override{
         return cena/5;
     }
-    float danok() override{
+    /*float danok() override{
         if(trki>10){
             return zarabotuvacka()*0.15;
         }
         return zarabotuvacka()*0.1;
+    }*/
+    float danok() override{
+    return (trki > 10)? zarabotuvacka()*0.15 : zarabotuvacka()*0.1;
     }
 };
 class Motociklist : public Vozac{
 private:
     int mokjnost;
 public:
-    Motociklist(const char *ime="", int vozrast=0, int trki=0, bool veteran= true, int mokjnost=0)
-    : Vozac(ime, vozrast, trki, veteran){
+    Motociklist(const char *ime="", int vozrast=0, int trki=0, bool veteran= true, int mokjnost=0) : Vozac(ime, vozrast, trki, veteran){
         this->mokjnost=mokjnost;
     }
     float zarabotuvacka() const override{
         return mokjnost*20;
     }
-    float danok() override{
+    /*float danok() override{
         if(veteran){
             return zarabotuvacka()*0.25;
         }
         return zarabotuvacka()*0.2;
+    }*/
+    float danok() override{
+    return veteran? zarabotuvacka()*0.25 : zarabotuvacka()*0.2;
     }
+    
 };
 int soIstaZarabotuvachka(Vozac **v, int n, Vozac *vozac){
     int br=0;
@@ -75,6 +78,8 @@ int soIstaZarabotuvachka(Vozac **v, int n, Vozac *vozac){
     }
     return br;
 }
+
+
 
 
 //не менуваш во main
