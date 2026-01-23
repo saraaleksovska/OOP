@@ -10,9 +10,7 @@ public:
     }
 };
 enum typeC{
-    standard,
-    loyal,
-    vip
+    standard, loyal, vip
 };
 class Customer{
 protected:
@@ -21,13 +19,13 @@ protected:
     typeC vid;
     static int osnoven;
     static const int dopolitelen;
-    int brProizvodi;
+    int n;
 public:
-    Customer(const char *ime="", const char *email="", typeC vid=standard, int brProizvodi=0){
+    Customer(const char *ime="", const char *email="", typeC vid=standard, int n=0){
         strcpy(this->ime,ime);
         strcpy(this->email,email);
         this->vid=vid;
-        this->brProizvodi=brProizvodi;
+        this->n=n;
     }
     int calcDiscount(){
         switch(vid){
@@ -36,16 +34,16 @@ public:
             default: return 0;
         }
     }
-    friend ostream &operator<<(ostream &out, Customer &c){
-        out << c.ime << endl<< c.email << endl<< c.brProizvodi << endl;
+    friend ostream &operator<<(ostream &o, Customer &c){
+        o << c.ime << endl<< c.email << endl<< c.n << endl;
         switch(c.vid){
-            case standard: out << "standard "; break;
-            case loyal: out << "loyal "; break;
-            case vip: out << "vip "; break;
+            case standard: o << "standard "; break;
+            case loyal: o << "loyal "; break;
+            case vip: o << "vip "; break;
             default: break;
         }
-        out << c.calcDiscount() << endl;
-        return out;
+        o << c.calcDiscount() << endl;
+        return o;
     }
     char *getEmail(){
         return email;
@@ -54,7 +52,7 @@ public:
         return vid;
     }
     int getNumProducts() {
-        return brProizvodi;
+        return n;
     }
     void setTypeC(typeC t){
         vid=t;
@@ -66,24 +64,24 @@ public:
 class FINKI_bookstore{
 protected:
     Customer *kupuvaci;
-    int n;
+    int m;
     void copy(const FINKI_bookstore &f){
-        this->n = f.n;
-        this->kupuvaci = new Customer[f.n];
-        for (int i = 0; i < n; i++) {
+        this->m = f.m;
+        this->kupuvaci = new Customer[f.m];
+        for (int i = 0; i < m; i++) {
             kupuvaci[i] = f.kupuvaci[i];
         }
     }
 public:
     FINKI_bookstore(){
         kupuvaci = nullptr;
-        n=0;
+        m=0;
     }
     FINKI_bookstore (const FINKI_bookstore &f){
         copy(f);
     }
     FINKI_bookstore &operator=(const FINKI_bookstore &f) {
-        if (this != &f){
+        if (this!=&f){
             delete[] kupuvaci;
             copy(f);
         }
@@ -93,22 +91,22 @@ public:
         delete[] kupuvaci;
     }
     FINKI_bookstore &operator+= (Customer &c) {
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i<m; i++) {
             if (!strcmp(kupuvaci[i].getEmail(), c.getEmail())){
                 throw UserExistsException();
             }
         }
-        Customer *tmp = new Customer[n+1];
-        for (int i=0; i<n; i++) {
+        Customer *tmp = new Customer[m+1];
+        for (int i=0; i<m; i++) {
             tmp[i]=kupuvaci[i];
         }
         delete[] kupuvaci;
-        tmp[n++] = c;
+        tmp[m++] = c;
         kupuvaci = tmp;
         return *this;
     }
     void update() {
-        for (int i=0; i<n; i++) {
+        for (int i=0; i<m; i++) {
             switch(kupuvaci[i].getTypeC()){
                 case standard:
                     if(kupuvaci[i].getNumProducts()>5) {
@@ -124,15 +122,15 @@ public:
             }
         }
     }
-    friend ostream &operator<<(ostream &out, FINKI_bookstore &f){
-        for(int i=0; i<f.n; i++)
-            out<<f.kupuvaci[i];
-        return out;
+    friend ostream &operator<<(ostream &o, FINKI_bookstore &f){
+        for(int i=0; i<f.m; i++)
+            o<<f.kupuvaci[i];
+        return o;
     }
     void setCustomers(Customer *c, int br){
-        n = br;
-        kupuvaci = new Customer[n];
-        for (int i = 0; i < n; ++i) {
+        m = br;
+        kupuvaci = new Customer[m];
+        for (int i = 0; i < m; ++i) {
             kupuvaci[i] = c[i];
         }
     }
