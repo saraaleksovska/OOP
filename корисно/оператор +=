@@ -1,11 +1,11 @@
  Client &operator+=(StockRecord &sr){
         StockRecord *tmp=new StockRecord[n+1];
         for(int i=0; i<n; i++){
-            tmp[i]=niza[i];
+            tmp[i]=kompanii[i];
         }
         kompanii[n++]=sr;
-        delete[] niza;
-        niza=tmp;
+        delete[] kompanii;
+        kompanii=tmp;
         return *this;
     }
 
