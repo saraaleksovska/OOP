@@ -3,9 +3,7 @@
 using namespace std;
 
 enum Size{
-    mala,
-    golema,
-    familijarna
+    mala, golema, familijarna
 };
 
 class Pizza{
@@ -19,8 +17,9 @@ public:
         strcpy(this->sostojki,sostojki);
         this->cena=cena;
     }
-    virtual float price() = 0;
-    friend bool operator < (Pizza &p1, Pizza &p2){
+    virtual float price() const= 0;
+    virtual ~Pizza() {}
+    friend bool operator<(Pizza &p1, Pizza &p2){
         return p1.price()<p2.price();
     }
 };
@@ -32,7 +31,7 @@ public:
     FlatPizza(const char *ime=" ", const char *sostojki=" ", float cena=0.0, Size golemina=mala): Pizza(ime, sostojki, cena){
         this->golemina=golemina;
     }
-    float price() override{
+    float price() const override{
         if(golemina==mala){
             return cena*1.1;
         }else if(golemina==golema){
@@ -43,70 +42,71 @@ public:
             return cena;
         }
     }
-    friend ostream &operator<<(ostream &out, FlatPizza &fp){
-        out<<fp.ime<<": "<<fp.sostojki<<", ";
+    friend ostream &operator<<(ostream &o, FlatPizza &fp){
+        o<<fp.ime<<": "<<fp.sostojki<<", ";
         if(fp.golemina==mala){
-            out<<"small";
+            o<<"small";
         }else if(fp.golemina==golema) {
-            out << "big";
+            o << "big";
         }else{
-            out << "family";
+            o << "family";
         }
-        out<<" - "<<fp.price()<<endl;
-        return out;
+        o<<" - "<<fp.price()<<endl;
+        return o;
     }
 };
 
 class FoldedPizza :public Pizza{
 protected:
-    bool beloBrasno;
+    bool belo;
 public:
-    FoldedPizza(const char *ime=" ", const char *sostojki=" ", float cena=0.0, bool beloBrasno=true): Pizza(ime, sostojki, cena){
-        this->beloBrasno=beloBrasno;
+    FoldedPizza(const char *ime=" ", const char *sostojki=" ", float cena=0.0, bool belo=true): Pizza(ime, sostojki, cena){
+        this->belo=belo;
     }
-    float price() override{
-        if(beloBrasno){
+    float price() const override{
+        if(belo){
             return cena*1.1;
-        }else if(!beloBrasno){
+        }else if(!belo){
             return cena*1.3;
         }else{
             return cena;
         }
     }
-    friend ostream &operator<<(ostream &out, FoldedPizza &fp){
-        out<<fp.ime<<": "<<fp.sostojki<<", ";
-        if(fp.beloBrasno){
-            out<<"wf";
+    friend ostream &operator<<(ostream &o, FoldedPizza &fp){
+        o<<fp.ime<<": "<<fp.sostojki<<", ";
+        if(fp.belo){
+            o<<"wf";
         }else{
-            out<<"nwf";
+            o<<"nwf";
         }
-        out<<" - "<<fp.price()<<endl;
+        o<<" - "<<fp.price()<<endl;
+        return o;
     }
     void setWhiteFlour(bool wf){
-        beloBrasno=wf;
+        belo=wf;
     }
 };
 void expensivePizza(Pizza **p, int n){
-    float najvisokaCena = p[0]->price();
-    int najskapaPica=0;
+    float maxCena = p[0]->price();
+    int najskapa=0;
     for(int i=0; i<n; i++){
-        if(p[i]->price()>najvisokaCena){
-            najvisokaCena=p[i]->price();
-            najskapaPica=i;
+        if(p[i]->price()>maxCena){
+            maxCena=p[i]->price();
+            najskapa=i;
         }
     }
-    FlatPizza *p1 = dynamic_cast<FlatPizza*> (p[najskapaPica]);
+    FlatPizza *p1 = dynamic_cast<FlatPizza*> (p[najskapa]);
     if(p1) {
         cout << *p1;
     }
-    FoldedPizza *p2 = dynamic_cast<FoldedPizza*> (p[najskapaPica]);
+    FoldedPizza *p2 = dynamic_cast<FoldedPizza*> (p[najskapa]);
     if(p2) {
         cout << *p2;
     }
 }
 
-//не менуваш ништо во main
 
+//не менуваш ништо во main
 int main() {
     int test_case;
     char name[20];
