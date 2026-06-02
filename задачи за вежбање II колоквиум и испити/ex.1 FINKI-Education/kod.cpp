@@ -43,6 +43,10 @@ private:
     char *url; //динамички алоцирана низа
     int mb;
     void copy(const OnlineBook &ob){
+		strcpy(this->isbn, ob.isbn);
+        strcpy(this->naslov, ob.naslov);
+        strcpy(this->avtor, ob.avtor);
+        this->cena=ob.cena;
         this->url=new char[strlen(ob.url)+1];
         strcpy(this->url, ob.url);
         this->mb=ob.mb;
