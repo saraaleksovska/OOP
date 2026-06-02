@@ -43,10 +43,6 @@ private:
     char *url; //динамички алоцирана низа
     int mb;
     void copy(const OnlineBook &ob){
-        strcpy(this->isbn, ob.isbn);
-        strcpy(this->naslov, ob.naslov);
-        strcpy(this->avtor, ob.avtor);
-        this->cena=ob.cena;
         this->url=new char[strlen(ob.url)+1];
         strcpy(this->url, ob.url);
         this->mb=ob.mb;
@@ -54,10 +50,6 @@ private:
 public:
     OnlineBook(const char *isbn="", const char *naslov="", const char *avtor="", float cena=0.0, const char *url="", int mb=0)
     :Book(isbn, naslov, avtor, cena){
-        strcpy(this->isbn, isbn);
-        strcpy(this->naslov, naslov);
-        strcpy(this->avtor, avtor);
-        this->cena=cena;
         this->url=new char[strlen(url)+1];
         strcpy(this->url, url);
         this->mb=mb;
