@@ -88,10 +88,6 @@ private:
 public:
     PrintBook(const char *isbn="", const char *naslov="", const char *avtor="", float cena=0.0, float masa=0.0, bool zaliha= true)
     :Book(isbn, naslov, avtor, cena){
-        strcpy(this->isbn, isbn);
-        strcpy(this->naslov, naslov);
-        strcpy(this->avtor, avtor);
-        this->cena=cena;
         this->masa=masa;
         this->zaliha=zaliha;
     }
